@@ -1,0 +1,124 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqxvh8yqxqxqx"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_0x8yq"]
+
+
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_0x8yq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 15)
+fov = 60.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0)
+light_energy = 1.0
+shadow_enabled = true
+
+[node name="GameBoard" type="Node3D" parent="."]
+
+[node name="Battlefield" type="Node3D" parent="GameBoard"]
+
+[node name="Ground" type="CSGBox3D" parent="GameBoard/Battlefield"]
+size = Vector3(24, 0.1, 24)
+
+[node name="Grid" type="Node3D" parent="GameBoard/Battlefield"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="TurnInfo" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 60.0
+text = "Turn: 1 | Player: 1 | Phase: HERO_PHASE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UnitInfo" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 350.0
+offset_bottom = -20.0
+
+[node name="UnitInfoLabel" type="Label" parent="UI/UnitInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+text = "Select a unit to see info"
+vertical_alignment = 1
+
+[node name="Controls" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 200.0
+
+[node name="PhaseLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "Controls:"
+horizontal_alignment = 1
+
+[node name="SpaceLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "SPACE - Next Phase"
+horizontal_alignment = 1
+
+[node name="EnterLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "ENTER - End Turn"
+horizontal_alignment = 1
+
+[node name="MouseLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "Click - Select Units"
+horizontal_alignment = 1
+
+[node name="DragLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "Drag - Move Units"
+horizontal_alignment = 1
+
+[node name="UndoLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "Z - Undo Move"
+horizontal_alignment = 1
+
+[node name="RedoLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "Y - Redo Move"
+horizontal_alignment = 1
+
+[node name="FinalizeLabel" type="Label" parent="UI/Controls"]
+layout_mode = 2
+text = "F - Finalize Move"
+horizontal_alignment = 1
+
+[node name="DistanceLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 80.0
+offset_bottom = 110.0
+text = "Distance: 0 inches"
+horizontal_alignment = 1

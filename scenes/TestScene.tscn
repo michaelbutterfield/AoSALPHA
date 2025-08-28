@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqxvh8yqxqxqx"]
+
+[ext_resource type="Script" path="res://scripts/TestScene.gd" id="1_0x8yq"]
+
+[node name="TestScene" type="Node3D"]
+script = ExtResource("1_0x8yq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
+fov = 60.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0)
+light_energy = 1.0
+
+[node name="Ground" type="CSGBox3D" parent="."]
+size = Vector3(20, 0.1, 20)
+
+[node name="TestUnit" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(1, 1, 1)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -50.0
+offset_right = 100.0
+offset_bottom = 50.0
+text = "3D Test Scene
+Press SPACE to continue"
+horizontal_alignment = 1
+vertical_alignment = 1

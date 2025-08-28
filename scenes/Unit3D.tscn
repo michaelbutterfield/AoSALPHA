@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://ceaywskh57erm"]
+
+[ext_resource type="Script" path="res://scripts/Unit3D.gd" id="1_0x8yq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2"]
+albedo_color = Color(0.2, 0.6, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3"]
+albedo_color = Color(0.8, 0.2, 0.2, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1"]
+radius = 0.25
+height = 0.5
+
+[node name="Unit3D" type="Node3D"]
+script = ExtResource("1_0x8yq")
+
+[node name="CollisionBody" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="CollisionBody"]
+shape = SubResource("CylinderShape3D_1")
+
+[node name="Base" type="CSGCylinder3D" parent="."]
+radius = 0.5
+height = 0.8
+material = SubResource("StandardMaterial3D_1")
+
+[node name="Model" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+size = Vector3(0.3, 0.4, 0.3)
+material = SubResource("StandardMaterial3D_2")
+
+[node name="SelectionRing" type="CSGCylinder3D" parent="."]
+radius = 0.3
+height = 0.02
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+material = SubResource("StandardMaterial3D_3")
+visible = false
+
+[node name="HealthBar" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="HealthBarBackground" type="CSGBox3D" parent="HealthBar"]
+size = Vector3(1, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_1")
+
+[node name="HealthBarFill" type="CSGBox3D" parent="HealthBar"]
+size = Vector3(1, 0.08, 0.08)
+material = SubResource("StandardMaterial3D_3")
+
+[node name="UnitLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+text = "Unit"
+font_size = 16
+outline_size = 1
+outline_modulate = Color(0, 0, 0, 1)
