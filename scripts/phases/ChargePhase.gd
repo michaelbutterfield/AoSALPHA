@@ -396,3 +396,4 @@ func _cleanup_movement_visuals() -> void:
 func _check_charge_success(unit: Unit3D) -> void:
 	check_charge_success(unit)
 
+

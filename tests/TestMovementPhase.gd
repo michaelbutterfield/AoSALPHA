@@ -25,3 +25,4 @@ func _ready() -> void:
 	# Exit
 	get_tree().quit()
 
+

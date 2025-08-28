@@ -84,3 +84,4 @@ func update_camera_position() -> void:
 	# Apply rotation to camera
 	camera.transform.basis = basis
 
+

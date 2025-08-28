@@ -21,3 +21,4 @@ func _process(delta: float) -> void:
 	# Exit after one frame
 	get_tree().quit()
 
+

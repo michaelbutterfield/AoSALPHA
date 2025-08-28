@@ -241,3 +241,4 @@ func _show_dice_results(attack_type: String, hit_rolls: Array[int], wound_rolls:
 	print("Final: %d hits, %d wounds, %d damage" % [hits, wounds, damage])
 	print("==================")
 
+

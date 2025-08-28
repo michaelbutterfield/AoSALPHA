@@ -61,3 +61,4 @@ func get_mouse_position() -> Vector2:
 func is_mouse_button_pressed(button_index: int) -> bool:
 	return Input.is_mouse_button_pressed(button_index)
 
+
