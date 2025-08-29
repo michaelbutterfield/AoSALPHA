@@ -17,10 +17,8 @@ var battlefield: Node3D
 var camera: Camera3D
 var unit_3d_instances: Array[Unit3D]
 
-func _init(battlefield_node: Node3D, camera_node: Camera3D, units: Array[Unit3D]):
-	battlefield = battlefield_node
-	camera = camera_node
-	unit_3d_instances = units
+func _init():
+	pass
 
 func start_charge_roll(unit: Unit3D) -> bool:
 	if unit.unit_data.has_charged:
@@ -395,5 +393,6 @@ func _cleanup_movement_visuals() -> void:
 
 func _check_charge_success(unit: Unit3D) -> void:
 	check_charge_success(unit)
+
 
 

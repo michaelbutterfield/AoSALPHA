@@ -12,10 +12,8 @@ var battlefield: Node3D
 var camera: Camera3D
 var unit_3d_instances: Array[Unit3D]
 
-func _init(battlefield_node: Node3D, camera_node: Camera3D, units: Array[Unit3D]):
-	battlefield = battlefield_node
-	camera = camera_node
-	unit_3d_instances = units
+func _init():
+	pass
 
 func start_shooting_targeting(selected_unit: Unit3D) -> bool:
 	if not selected_unit:
@@ -240,5 +238,6 @@ func _show_dice_results(attack_type: String, hit_rolls: Array[int], wound_rolls:
 	print("Wound Rolls: %s" % str(wound_rolls) if not wound_rolls.is_empty() else "No wounds")
 	print("Final: %d hits, %d wounds, %d damage" % [hits, wounds, damage])
 	print("==================")
+
 
 

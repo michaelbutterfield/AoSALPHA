@@ -129,8 +129,13 @@ func setup_camera_controls() -> void:
 	camera = get_viewport().get_camera_3d()
 	if camera:
 		# Initialize utility controllers
-		camera_controller = camera_controller_script.new(camera)
-		input_handler = input_handler_script.new(camera_controller)
+		var camera_controller_instance = camera_controller_script.new()
+		camera_controller_instance.camera = camera
+		camera_controller = camera_controller_instance
+		
+		var input_handler_instance = input_handler_script.new()
+		input_handler_instance.camera_controller = camera_controller_instance
+		input_handler = input_handler_instance
 		
 		# Connect input signals
 		input_handler.key_pressed.connect(_on_key_pressed)
@@ -147,6 +152,9 @@ func setup_camera_controls() -> void:
 		print("  ENTER - Next phase")
 	else:
 		print("WARNING: No camera found!")
+		# Create dummy controllers for testing
+		camera_controller = camera_controller_script.new()
+		input_handler = input_handler_script.new()
 
 func setup_player_colors() -> void:
 	"""Set player colors (Player 1 = Red, Player 2 = Blue)"""
@@ -232,16 +240,32 @@ func initialize_phase_controllers() -> void:
 	var camera = get_viewport().get_camera_3d()
 	
 	# Initialize MovementPhase
-	movement_phase = movement_phase_script.new(battlefield, camera)
+	var movement_phase_instance = movement_phase_script.new()
+	movement_phase_instance.battlefield = battlefield
+	movement_phase_instance.camera = camera
+	movement_phase_instance.unit_instances = unit_3d_instances
+	movement_phase = movement_phase_instance
 	
 	# Initialize ShootingPhase
-	shooting_phase = shooting_phase_script.new(battlefield, camera, unit_3d_instances)
+	var shooting_phase_instance = shooting_phase_script.new()
+	shooting_phase_instance.battlefield = battlefield
+	shooting_phase_instance.camera = camera
+	shooting_phase_instance.unit_3d_instances = unit_3d_instances
+	shooting_phase = shooting_phase_instance
 	
 	# Initialize ChargePhase
-	charge_phase = charge_phase_script.new(battlefield, camera, unit_3d_instances)
+	var charge_phase_instance = charge_phase_script.new()
+	charge_phase_instance.battlefield = battlefield
+	charge_phase_instance.camera = camera
+	charge_phase_instance.unit_3d_instances = unit_3d_instances
+	charge_phase = charge_phase_instance
 	
 	# Initialize CombatPhase
-	combat_phase = combat_phase_script.new(battlefield, camera, unit_3d_instances)
+	var combat_phase_instance = combat_phase_script.new()
+	combat_phase_instance.battlefield = battlefield
+	combat_phase_instance.camera = camera
+	combat_phase_instance.unit_3d_instances = unit_3d_instances
+	combat_phase = combat_phase_instance
 	
 	# Connect phase signals
 	movement_phase.movement_completed.connect(_on_movement_completed)
@@ -483,7 +507,7 @@ func handle_charge_phase_click() -> void:
 	# 		# Automatically start charge movement drag after rolling
 	# 		charge_phase.start_charge_movement_drag(clicked_unit)
 	# 		print("Started charge movement drag for %s" % clicked_unit.unit_data.unit_name)
-	var clicked_unit = UnitUtils.get_clicked_unit(get_viewport().get_camera_3d(), input_handler.get_mouse_position(), unit_3d_instances)
+	var clicked_unit = unit_utils_script.get_clicked_unit(get_viewport().get_camera_3d(), input_handler.get_mouse_position(), unit_3d_instances)
 	if not clicked_unit:
 		return
 	
@@ -531,9 +555,9 @@ func handle_combat_phase_click() -> void:
 	# 			print("✅ %s can attack %s (within 1\")" % [selected_unit_3d.unit_data.unit_name, clicked_unit.unit_data.unit_name])
 	# 		# 	combat_phase.resolve_attack(selected_unit_3d, clicked_unit)
 	# 		else:
-	# 			var distance = UnitUtils.get_base_to_base_distance(selected_unit_3d, clicked_unit)
+	# 			var distance = unit_utils_script.get_base_to_base_distance(selected_unit_3d, clicked_unit)
 	# 			print("❌ %s cannot attack %s (%.1f\" away, need ≤1\")" % [selected_unit_3d.unit_data.unit_name, clicked_unit.unit_data.unit_name, distance])
-	var clicked_unit = UnitUtils.get_clicked_unit(get_viewport().get_camera_3d(), input_handler.get_mouse_position(), unit_3d_instances)
+	var clicked_unit = unit_utils_script.get_clicked_unit(get_viewport().get_camera_3d(), input_handler.get_mouse_position(), unit_3d_instances)
 	if not clicked_unit:
 		return
 	
@@ -554,7 +578,7 @@ func handle_combat_phase_click() -> void:
 				print("✅ %s can attack %s (within 1\")" % [selected_unit_3d.unit_data.unit_name, clicked_unit.unit_data.unit_name])
 			# 	combat_phase.resolve_attack(selected_unit_3d, clicked_unit)
 			else:
-				var distance = UnitUtils.get_base_to_base_distance(selected_unit_3d, clicked_unit)
+				var distance = unit_utils_script.get_base_to_base_distance(selected_unit_3d, clicked_unit)
 				print("❌ %s cannot attack %s (%.1f\" away, need ≤1\")" % [selected_unit_3d.unit_data.unit_name, clicked_unit.unit_data.unit_name, distance])
 
 # Signal Handlers

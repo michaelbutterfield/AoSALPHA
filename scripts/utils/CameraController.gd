@@ -10,9 +10,8 @@ var camera_rotation_speed: float = 2.0
 var camera_position: Vector3 = Vector3(0, 15, 15)
 var camera_rotation: Vector2 = Vector2(0, -30)
 
-func _init(camera_node: Camera3D):
-	camera = camera_node
-	update_camera_position()
+func _init():
+	pass
 
 func move_forward() -> void:
 	camera_position += Vector3(0, 0, -1) * camera_speed * 0.1
@@ -83,5 +82,6 @@ func update_camera_position() -> void:
 	
 	# Apply rotation to camera
 	camera.transform.basis = basis
+
 
 

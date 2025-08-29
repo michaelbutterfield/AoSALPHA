@@ -55,7 +55,12 @@ static func get_clicked_unit(camera: Camera3D, mouse_pos: Vector2, unit_instance
 	var from = camera.project_ray_origin(mouse_pos)
 	var to = from + camera.project_ray_normal(mouse_pos) * 1000
 	
-	var space_state = get_world_3d().direct_space_state
+	# Get the world from the camera's viewport
+	var viewport = camera.get_viewport()
+	if not viewport:
+		return null
+	
+	var space_state = viewport.get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(from, to)
 	var result = space_state.intersect_ray(query)
 	
